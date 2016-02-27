@@ -15,11 +15,21 @@
 @synthesize imageButton;
 
 
--(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
-{
-    self = (MapKitView*)[super initWithWebView:theWebView];
-    return self;
-}
+//-(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
+//{
+//    self = (MapKitView*)[super initWithWebView:theWebView];
+//    return self;
+//}
+//
+//- (void)pluginInitialize {
+//    self.initSelf;
+//}
+//
+//- (void)initSelf {
+//    self = self.viewController.view;
+//}
+
+
 
 /**
  * Create a native map view
@@ -44,8 +54,9 @@
     if(atBottom) {
         y += self.webView.bounds.size.height - height;
     }
-
+    
     self.childView = [[UIView alloc] initWithFrame:CGRectMake(x,y,width,height)];
+    //self.childView.delegate = self;
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(self.childView.bounds.origin.x, self.childView.bounds.origin.x, self.childView.bounds.size.width, self.childView.bounds.size.height)];
     self.mapView.delegate = self;
     self.mapView.multipleTouchEnabled   = YES;
@@ -268,13 +279,13 @@
     //NSLog(@"Selected: %@%@%@",[view.annotation subtitle], latitude, longitude);
     
     NSString *annotationTapFunctionString = [NSString stringWithFormat:@"%s%@%s%@%s%@%s", "annotationTap('", [view.annotation subtitle], "','", latitude, "','", longitude, "')"];
-    [self.webView stringByEvaluatingJavaScriptFromString:annotationTapFunctionString];
+    [self.commandDelegate evalJs:annotationTapFunctionString];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
     //NSLog(@"De-Selected: %@",[view.annotation title]);
     NSString *annotationDeselectFunctionString = [NSString stringWithFormat:@"%s%@%s", "annotationDeselect('", [view.annotation subtitle], "')"];
-    [self.webView stringByEvaluatingJavaScriptFromString:annotationDeselectFunctionString];
+    [self.commandDelegate evalJs:annotationDeselectFunctionString];
 }
 
 - (void)mapView:(MKMapView *)theMapView regionDidChangeAnimated: (BOOL)animated
@@ -287,7 +298,8 @@
     
     NSString* jsString = nil;
     jsString = [[NSString alloc] initWithFormat:@"geo.onMapMove(\'%f','%f','%f','%f\');", currentLat,currentLon,latitudeDelta,longitudeDelta];
-    [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    //NSLog(@"move");
+    [self.commandDelegate evalJs:jsString];
     //[jsString autorelease];
 }
 /* end custom addition */
@@ -370,7 +382,7 @@
 
     NSString* jsString = nil;
     jsString = [[NSString alloc] initWithFormat:@"geo.onMapMove(\'%f','%f','%f','%f\');", currentLat,currentLon,latitudeDelta,longitudeDelta];
-    [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    [webView stringByEvaluatingJavaScriptFromString:jsString];
     [jsString autorelease];
 }
  */
@@ -388,7 +400,7 @@
 {
 	UIButton *tmpButton = button;
 	NSString* jsString = [NSString stringWithFormat:@"%@(\"%i\");", self.buttonCallback, tmpButton.tag];
-	[self.webView stringByEvaluatingJavaScriptFromString:jsString];
+	[self.commandDelegate evalJs:jsString];
 }
 
 - (void)dealloc

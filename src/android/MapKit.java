@@ -1,4 +1,4 @@
-package com.phonegap.plugins.mapkit;
+fpackage com.phonegap.plugins.mapkit;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
@@ -81,8 +81,8 @@ public class MapKit extends CordovaPlugin {
                             mapView = new MapView(cordova.getActivity(),
                                     new GoogleMapOptions());
                             root = (ViewGroup) webView.getView().getParent();
-                            root.removeView(webView);
-                            main.addView(webView);
+                            root.removeView(webView.getView());
+                            main.addView(webView.getView());
 
                             cordova.getActivity().setContentView(main);
 
@@ -287,9 +287,9 @@ public class MapKit extends CordovaPlugin {
 					} else {
 						//Log.d("MYTAG", "false");
 						mapView.onDestroy();
-						main.removeView(webView);
-						main.removeView(mapView);
-						root.addView(webView);
+						main.removeView(webView.getView());
+						main.removeView(mapView.getView());
+						root.addView(webView.getView());
 						cordova.getActivity().setContentView(root);
 						mapView = null;
 						cCtx.success();

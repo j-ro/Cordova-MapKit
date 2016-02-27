@@ -288,7 +288,7 @@ public class MapKit extends CordovaPlugin {
 						//Log.d("MYTAG", "false");
 						mapView.onDestroy();
 						main.removeView(webView.getView());
-						main.removeView(mapView.getView());
+						main.removeView(mapView);
 						root.addView(webView.getView());
 						cordova.getActivity().setContentView(root);
 						mapView = null;

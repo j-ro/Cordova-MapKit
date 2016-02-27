@@ -62,8 +62,8 @@ public class MapKit extends CordovaPlugin {
                 	if (mapView != null) {
                 		mapView.setVisibility(mapView.VISIBLE);
                 	} else {
-                        LOG.e(TAG, "hello world");
-                        LOG.e(TAG, options);
+                        //LOG.e(TAG, "hello world");
+                        //LOG.e(TAG, options);
                         try {
                             height = options.getInt("height");
                             latitude = options.getDouble("lat");
@@ -71,9 +71,9 @@ public class MapKit extends CordovaPlugin {
                             offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
     						zoomLevel = options.getInt("zoomLevel");
                             atBottom = options.getBoolean("atBottom");
-                            LOG.e(height);
+                            //LOG.e(height);
                         } catch (JSONException e) {
-                            LOG.e(TAG, "Error reading options");
+                            //LOG.e(TAG, "Error reading options");
                         }
 
                         final int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(cordova.getActivity());
@@ -236,7 +236,7 @@ public class MapKit extends CordovaPlugin {
 						zoomLevel = options.getInt("zoomLevel");
 						atBottom = options.getBoolean("atBottom");
 					} catch (JSONException e) {
-						LOG.e(TAG, "Error reading options");
+						//LOG.e(TAG, "Error reading options");
 					}
 
 					RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -338,13 +338,13 @@ public class MapKit extends CordovaPlugin {
                                 try {
                                     mapView.getMap().addMarker(mOptions);
                                 } catch(NullPointerException e) {
-                                    LOG.e(TAG, "An error occurred when adding the marker. Check if icon exists");
+                                    //LOG.e(TAG, "An error occurred when adding the marker. Check if icon exists");
                                 }
                             }
                             cCtx.success();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            LOG.e(TAG, "An error occurred while reading pins");
+                            //LOG.e(TAG, "An error occurred while reading pins");
                             cCtx.error("An error occurred while reading pins");
                         }
                     }
@@ -407,7 +407,7 @@ public class MapKit extends CordovaPlugin {
                         try {
                             mapType = options.getInt("mapType");
                         } catch (JSONException e) {
-                            LOG.e(TAG, "Error reading options");
+                            //LOG.e(TAG, "Error reading options");
                         }
 
                         //Don't want to set the map type if it's the same

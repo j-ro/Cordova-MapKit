@@ -80,7 +80,7 @@ public class MapKit extends CordovaPlugin {
                         if (resultCode == ConnectionResult.SUCCESS) {
                             mapView = new MapView(cordova.getActivity(),
                                     new GoogleMapOptions());
-                            root = (ViewGroup) webView.getParent();
+                            root = (ViewGroup) webView.getView().getParent();
                             root.removeView(webView);
                             main.addView(webView);
 

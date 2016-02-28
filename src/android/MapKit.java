@@ -205,7 +205,7 @@ public class MapKit extends CordovaPlugin {
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
                                    resultCode == ConnectionResult.SERVICE_DISABLED) {
 	                                   Log.e("BusTrackDC", "google error log");
-	                                   Log.e("BusTrackDC", resultCode);
+	                                   Log.e("BusTrackDC", resultCode.toString());
 /*
                             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
                                         new DialogInterface.OnCancelListener() {

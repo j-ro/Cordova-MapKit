@@ -205,6 +205,13 @@ public class MapKit extends CordovaPlugin {
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
                                    resultCode == ConnectionResult.SERVICE_DISABLED) {
 	                                   Log.e("BusTrackDC", "google error log");
+	                                   if (resultCode == ConnectionResult.SERVICE_MISSING) {
+		                                   Log.e("BusTrackDC", "ConnectionResult.SERVICE_MISSING");
+	                                   } else if (resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED) {
+		                                   Log.e("BusTrackDC", "ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED");
+	                                   } else if (resultCode == ConnectionResult.SERVICE_DISABLED) {
+		                                   Log.e("BusTrackDC", "ConnectionResult.SERVICE_DISABLED");
+	                                   }
 	                                   //Log.e("BusTrackDC", resultCode.toString());
 /*
                             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,

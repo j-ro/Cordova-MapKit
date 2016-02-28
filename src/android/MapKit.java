@@ -201,6 +201,9 @@ public class MapKit extends CordovaPlugin {
                         } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
                                    resultCode == ConnectionResult.SERVICE_DISABLED) {
+	                                   Log.e("google error log");
+	                                   Log.e(resultCode);
+/*
                             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
                                         new DialogInterface.OnCancelListener() {
                                             @Override
@@ -210,6 +213,7 @@ public class MapKit extends CordovaPlugin {
                                         }
                                     );
                             dialog.show();
+*/
                         }
                 	}
                     

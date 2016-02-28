@@ -213,7 +213,7 @@ public class MapKit extends CordovaPlugin {
 		                                   Log.e("BusTrackDC", "ConnectionResult.SERVICE_DISABLED");
 	                                   }
 	                                   
-	                                  Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 1);
+	                                  Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1);
 									  dialog.show();
 	                                   //Log.e("BusTrackDC", resultCode.toString());
 /*

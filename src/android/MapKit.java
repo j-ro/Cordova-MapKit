@@ -33,7 +33,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import android.util.Log;
-private static final String TAG = "BusTrackDC";
+//private static final String TAG = "BusTrackDC";
 
 public class MapKit extends CordovaPlugin {
 
@@ -204,8 +204,8 @@ public class MapKit extends CordovaPlugin {
                         } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
                                    resultCode == ConnectionResult.SERVICE_DISABLED) {
-	                                   Log.e(TAG, "google error log");
-	                                   Log.e(TAG, resultCode);
+	                                   Log.e("BusTrackDC", "google error log");
+	                                   Log.e("BusTrackDC", resultCode);
 /*
                             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
                                         new DialogInterface.OnCancelListener() {

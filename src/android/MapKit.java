@@ -32,6 +32,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.VisibleRegion;
 
+import android.util.Log;
+
 public class MapKit extends CordovaPlugin {
 
     protected ViewGroup root; // original Cordova layout
@@ -201,8 +203,8 @@ public class MapKit extends CordovaPlugin {
                         } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
                                    resultCode == ConnectionResult.SERVICE_DISABLED) {
-	                                   __android_log_print(ANDROID_LOG_INFO, "BusTrackDC", "error = %d", resultCode);
-
+	                                   Log.e("google error log");
+	                                   Log.e(resultCode);
 /*
                             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
                                         new DialogInterface.OnCancelListener() {

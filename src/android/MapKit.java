@@ -249,7 +249,7 @@ public class MapKit extends CordovaPlugin {
 	    double metersPerPixel = equatorLength / 256;
 	    int zoomLevel = 1;
 	    while ((metersPerPixel * widthInPixels) > 2000) {
-	        metersPerPixel /= 2;
+	        metersPerPixel /= 3;
 	        ++zoomLevel;
 	    }
 	    //Log.i("ADNAN", "zoom level = "+zoomLevel);

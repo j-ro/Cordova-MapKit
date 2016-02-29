@@ -58,7 +58,7 @@ public class MapKit extends CordovaPlugin {
     }
 
     public void showMap(final JSONObject options) {
-	    Log.d("MYTAG", "showMap");
+	    //Log.d("MYTAG", "showMap");
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -241,19 +241,44 @@ public class MapKit extends CordovaPlugin {
         }
     }
     
+    private int calculateZoomLevel(int screenWidth) {
+	    Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int width = size.x;
+		int height = size.y;
+	    double equatorLength = 40075004; // in meters
+	    double widthInPixels = height;
+	    double metersPerPixel = equatorLength / 256;
+	    int zoomLevel = 1;
+	    while ((metersPerPixel * widthInPixels) > 2000) {
+	        metersPerPixel /= 2;
+	        ++zoomLevel;
+	    }
+	    //Log.i("ADNAN", "zoom level = "+zoomLevel);
+	    return zoomLevel;
+	}
+    
     public void setMapData(final JSONObject options) {
-		Log.d("MYTAG", "setMapData");
+		//Log.d("MYTAG", "setMapData");
 		try {
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					try {
-						LOG.e(TAG, options.toString(4));
+						//LOG.e(TAG, options.toString(4));
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");
 						offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
-						zoomLevel = options.getInt("zoomLevel");
+						if (options.getInt("zoomLevel")) {
+							zoomLevel = options.getInt("zoomLevel");
+						} else {
+							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
+						}
+						
+						LOG.e(TAG, zoomLevel.toString(4));
+						
 						atBottom = options.getBoolean("atBottom");
 					} catch (JSONException e) {
 						//LOG.e(TAG, "Error reading options");
@@ -288,7 +313,7 @@ public class MapKit extends CordovaPlugin {
     }
 
     private void hideMap() {
-	    Log.d("MYTAG", "hideMap");
+	    //Log.d("MYTAG", "hideMap");
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -449,8 +474,8 @@ public class MapKit extends CordovaPlugin {
     public boolean execute(String action, JSONArray args,
             CallbackContext callbackContext) throws JSONException {
         cCtx = callbackContext;
-        Log.d("MYTAG", "action");
-        Log.d("MYTAG", action);
+        //Log.d("MYTAG", "action");
+        //Log.d("MYTAG", action);
         if (action.compareTo("showMap") == 0) {
             showMap(args.getJSONObject(0));
         } else if (action.compareTo("hideMap") == 0) {
@@ -464,7 +489,7 @@ public class MapKit extends CordovaPlugin {
         } else if (action.compareTo("setMapData") == 0) {
 	        setMapData(args.getJSONObject(0));
         }
-        LOG.d(TAG, action);
+        //LOG.d(TAG, action);
 
         return true;
     }

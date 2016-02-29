@@ -66,8 +66,9 @@ public class MapKit extends CordovaPlugin {
                 		mapView.setVisibility(mapView.VISIBLE);
                 	} else {
                         //LOG.e(TAG, "hello world");
-                        LOG.e(TAG, options.toString(4));
+                        
                         try {
+	                        LOG.e(TAG, options.toString(4));
                             height = options.getInt("height");
                             latitude = options.getDouble("lat");
                             longitude = options.getDouble("lon");

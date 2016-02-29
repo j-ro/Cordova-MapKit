@@ -264,6 +264,7 @@ public class MapKit extends CordovaPlugin {
 				public void run() {
 					try {
 						//LOG.e(TAG, options.toString(4));
+						LOG.d("MYTAG", "zoomlevel");
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");
@@ -276,8 +277,8 @@ public class MapKit extends CordovaPlugin {
 						}
 */
 						zoomLevel = options.getInt("zoomLevel");
-						LOG.e("logging", "zoomlevel");
-						LOG.e("logging", "value: " + zoomLevel);
+						
+						LOG.d("logging", "value: " + zoomLevel);
 						
 						atBottom = options.getBoolean("atBottom");
 					} catch (JSONException e) {

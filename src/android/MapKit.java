@@ -58,6 +58,7 @@ public class MapKit extends CordovaPlugin {
     }
 
     public void showMap(final JSONObject options) {
+	    Log.d("MYTAG", "showMap");
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -287,6 +288,7 @@ public class MapKit extends CordovaPlugin {
     }
 
     private void hideMap() {
+	    Log.d("MYTAG", "hideMap");
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override

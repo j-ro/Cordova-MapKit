@@ -268,12 +268,14 @@ public class MapKit extends CordovaPlugin {
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");
 						offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
+/*
 						if (options.getInt("zoomLevel")) {
 							zoomLevel = options.getInt("zoomLevel");
 						} else {
 							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
 						}
-						
+*/
+						zoomLevel = options.getInt("zoomLevel");
 						LOG.e(TAG, zoomLevel.toString(4));
 						
 						atBottom = options.getBoolean("atBottom");

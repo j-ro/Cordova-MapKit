@@ -276,7 +276,8 @@ public class MapKit extends CordovaPlugin {
 						}
 */
 						zoomLevel = options.getInt("zoomLevel");
-						LOG.e(TAG, "value: " + zoomLevel);
+						LOG.e("logging", "zoomlevel");
+						LOG.e("logging", "value: " + zoomLevel);
 						
 						atBottom = options.getBoolean("atBottom");
 					} catch (JSONException e) {

@@ -242,11 +242,8 @@ public class MapKit extends CordovaPlugin {
     }
     
     private int calculateZoomLevel(int screenWidth) {
-	    Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		int width = size.x;
-		int height = size.y;
+		int width = cordova.getActivity().getResources().getDisplayMetrics().widthPixels;
+		int height = cordova.getActivity().getResources().getDisplayMetrics().heightPixels;
 	    double equatorLength = 40075004; // in meters
 	    double widthInPixels = height;
 	    double metersPerPixel = equatorLength / 256;

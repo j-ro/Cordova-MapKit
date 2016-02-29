@@ -259,10 +259,14 @@ public class MapKit extends CordovaPlugin {
     public void setMapData(final JSONObject options) {
 		Log.d("MYTAG", "setMapData");
 		try {
+			Log.d("MYTAG", "setMapData2");
 			cordova.getActivity().runOnUiThread(new Runnable() {
+				Log.d("MYTAG", "setMapData3");
 				@Override
 				public void run() {
+					Log.d("MYTAG", "setMapData4");
 					try {
+						Log.d("MYTAG", "setMapData5");
 						LOG.e(TAG, options.toString(4));
 						LOG.d("MYTAG", "zoomlevel");
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());

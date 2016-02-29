@@ -274,10 +274,9 @@ public class MapKit extends CordovaPlugin {
 						longitude = options.getDouble("lon");
 						offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
 						
+						zoomLevel = options.getInt("zoomLevel");
 
-						if (options.getInt("zoomLevel") != null) {
-							zoomLevel = options.getInt("zoomLevel");
-						} else {
+						if (zoomLevel == null) {
 							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
 						}
 

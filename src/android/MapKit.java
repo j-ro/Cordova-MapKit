@@ -75,6 +75,11 @@ public class MapKit extends CordovaPlugin {
                             longitude = options.getDouble("lon");
                             offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
     						zoomLevel = options.getInt("zoomLevel");
+							//Log.d("MYTAG", "zoomlevel1");
+	
+							if (zoomLevel == 0) {
+								zoomLevel = calculateZoomLevel(options.getInt("diameter"));
+							}
                             atBottom = options.getBoolean("atBottom");
                             //LOG.e(height);
                         } catch (JSONException e) {
@@ -284,7 +289,7 @@ public class MapKit extends CordovaPlugin {
 
 						//zoomLevel = options.getInt("zoomLevel");
 						//Log.d("MYTAG", "zoomlevel2");
-						Log.d("MYTAG", "value: " + zoomLevel);
+						//Log.d("MYTAG", "value: " + zoomLevel);
 						
 						atBottom = options.getBoolean("atBottom");
 					} catch (JSONException e) {

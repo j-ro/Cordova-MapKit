@@ -245,7 +245,7 @@ public class MapKit extends CordovaPlugin {
 		int width = cordova.getActivity().getResources().getDisplayMetrics().widthPixels;
 		int height = cordova.getActivity().getResources().getDisplayMetrics().heightPixels;
 	    double equatorLength = 40075004; // in meters
-	    double widthInPixels = height;
+	    double widthInPixels = width;
 	    double metersPerPixel = equatorLength / 256;
 	    int zoomLevel = 1;
 	    while ((metersPerPixel * widthInPixels) > 2000) {
@@ -257,33 +257,33 @@ public class MapKit extends CordovaPlugin {
 	}
     
     public void setMapData(final JSONObject options) {
-		Log.d("MYTAG", "setMapData");
+		//Log.d("MYTAG", "setMapData");
 		try {
-			Log.d("MYTAG", "setMapData2");
+			//Log.d("MYTAG", "setMapData2");
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				//Log.d("MYTAG", "setMapData3");
 				@Override
 				public void run() {
-					Log.d("MYTAG", "setMapData4");
+					//Log.d("MYTAG", "setMapData4");
 					try {
-						Log.d("MYTAG", "setMapData5");
-						Log.d("MYTAG", options.toString(4));
+						//Log.d("MYTAG", "setMapData5");
+						//Log.d("MYTAG", options.toString(4));
 						
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");
 						offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
 						
-						Log.d("MYTAG", "zoomlevel");
+						//Log.d("MYTAG", "zoomlevel");
 						zoomLevel = options.getInt("zoomLevel");
-						Log.d("MYTAG", "zoomlevel1");
+						//Log.d("MYTAG", "zoomlevel1");
 
 						if (zoomLevel == 0) {
 							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
 						}
 
 						//zoomLevel = options.getInt("zoomLevel");
-						Log.d("MYTAG", "zoomlevel2");
+						//Log.d("MYTAG", "zoomlevel2");
 						Log.d("MYTAG", "value: " + zoomLevel);
 						
 						atBottom = options.getBoolean("atBottom");

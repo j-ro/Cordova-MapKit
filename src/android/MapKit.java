@@ -267,7 +267,7 @@ public class MapKit extends CordovaPlugin {
 					Log.d("MYTAG", "setMapData4");
 					try {
 						Log.d("MYTAG", "setMapData5");
-						LOG.e(TAG, options.toString(4));
+						LOG.d("MYTAG", options.toString(4));
 						LOG.d("MYTAG", "zoomlevel");
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");

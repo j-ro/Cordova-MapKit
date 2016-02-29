@@ -268,20 +268,22 @@ public class MapKit extends CordovaPlugin {
 					try {
 						Log.d("MYTAG", "setMapData5");
 						Log.d("MYTAG", options.toString(4));
-						Log.d("MYTAG", "zoomlevel");
+						
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");
 						offsetTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("offsetTop"), cordova.getActivity().getResources().getDisplayMetrics());
 						
+						Log.d("MYTAG", "zoomlevel");
 						zoomLevel = options.getInt("zoomLevel");
+						Log.d("MYTAG", "zoomlevel1");
 
 						if (zoomLevel == 0) {
 							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
 						}
 
 						//zoomLevel = options.getInt("zoomLevel");
-						
+						Log.d("MYTAG", "zoomlevel2");
 						Log.d("MYTAG", "value: " + zoomLevel);
 						
 						atBottom = options.getBoolean("atBottom");

@@ -462,7 +462,7 @@ public class MapKit extends CordovaPlugin {
         } else if( action.compareTo("changeMapType") == 0 ) {
             changeMapType(args.getJSONObject(0));
         } else if (action.compareTo("setMapData") == 0) {
-	        setMapData(args.getJSONobject(0));
+	        setMapData(args.getJSONObject(0));
         }
         LOG.d(TAG, action);
 

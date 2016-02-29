@@ -261,7 +261,7 @@ public class MapKit extends CordovaPlugin {
 		try {
 			Log.d("MYTAG", "setMapData2");
 			cordova.getActivity().runOnUiThread(new Runnable() {
-				Log.d("MYTAG", "setMapData3");
+				//Log.d("MYTAG", "setMapData3");
 				@Override
 				public void run() {
 					Log.d("MYTAG", "setMapData4");

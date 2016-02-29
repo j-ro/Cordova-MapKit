@@ -276,7 +276,7 @@ public class MapKit extends CordovaPlugin {
 						
 						zoomLevel = options.getInt("zoomLevel");
 
-						if (zoomLevel == null) {
+						if (zoomLevel == 0) {
 							zoomLevel = calculateZoomLevel(options.getInt("diameter"));
 						}
 

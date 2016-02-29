@@ -68,7 +68,7 @@ public class MapKit extends CordovaPlugin {
                         //LOG.e(TAG, "hello world");
                         
                         try {
-	                        LOG.e(TAG, options.toString(4));
+	                        //LOG.e(TAG, options.toString(4));
                             height = options.getInt("height");
                             latitude = options.getDouble("lat");
                             longitude = options.getDouble("lon");
@@ -247,6 +247,7 @@ public class MapKit extends CordovaPlugin {
 				@Override
 				public void run() {
 					try {
+						LOG.e(TAG, options.toString(4));
 						height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,options.getInt("height"), cordova.getActivity().getResources().getDisplayMetrics());
 						latitude = options.getDouble("lat");
 						longitude = options.getDouble("lon");

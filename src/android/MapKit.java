@@ -449,6 +449,8 @@ public class MapKit extends CordovaPlugin {
     public boolean execute(String action, JSONArray args,
             CallbackContext callbackContext) throws JSONException {
         cCtx = callbackContext;
+        Log.d("MYTAG", "action");
+        Log.d("MYTAG", action);
         if (action.compareTo("showMap") == 0) {
             showMap(args.getJSONObject(0));
         } else if (action.compareTo("hideMap") == 0) {

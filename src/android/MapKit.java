@@ -120,6 +120,7 @@ public class MapKit extends CordovaPlugin {
                             
                             mapView.getMap().setMyLocationEnabled(true);
 							mapView.getMap().getUiSettings().setMyLocationButtonEnabled(false);
+							mapView.getMap().getUiSettings().setMapToolbarEnabled(false);
 
                             // Moving the map to lot, lon
                             mapView.getMap().moveCamera(

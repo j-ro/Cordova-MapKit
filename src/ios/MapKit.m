@@ -124,7 +124,7 @@
         NSInteger index=[[pinData valueForKey:@"index"] integerValue];
         BOOL selected = [[pinData valueForKey:@"selected"] boolValue];
         
-        NSLog([NSString stringWithFormat:@"%d", index]);
+        //NSLog([NSString stringWithFormat:@"%d", index]);
         
         NSString *pinColor = nil;
         NSString *imageURL = nil;

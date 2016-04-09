@@ -58,7 +58,7 @@ public class MapKit extends CordovaPlugin {
     }
 
     public void showMap(final JSONObject options) {
-	    //Log.d("MYTAG", "showMap");
+	    //Log.d("BusTrackDC", "showMap");
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override

@@ -8,6 +8,7 @@ import org.apache.cordova.LOG;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.view.KeyEvent;
 
 import android.util.TypedValue;
 import android.view.View;
@@ -33,6 +34,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import android.util.Log;
+import android.view.View.OnKeyListener;
+
+
+import java.lang.Override;
 //private static final String TAG = "BusTrackDC";
 
 public class MapKit extends CordovaPlugin {
@@ -59,6 +64,9 @@ public class MapKit extends CordovaPlugin {
 
     public void showMap(final JSONObject options) {
 	    //Log.d("BusTrackDC", "showMap");
+
+		
+	    
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -88,6 +96,7 @@ public class MapKit extends CordovaPlugin {
 
                         final int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(cordova.getActivity());
                         if (resultCode == ConnectionResult.SUCCESS) {
+	                        
                             mapView = new MapView(cordova.getActivity(),
                                     new GoogleMapOptions());
                             root = (ViewGroup) webView.getView().getParent();
@@ -95,6 +104,10 @@ public class MapKit extends CordovaPlugin {
                             main.addView(webView.getView());
 
                             cordova.getActivity().setContentView(main);
+                            
+                            
+                            
+                            //cordova.getActivity().onKeyUp();
 
                             MapsInitializer.initialize(cordova.getActivity());
 
@@ -117,6 +130,18 @@ public class MapKit extends CordovaPlugin {
                             mapView.onResume(); // FIXME: I wish there was a better way
                                                 // than this...
                             main.addView(mapView);
+                            
+                            //fix for back button: http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
+                            mapView.setFocusableInTouchMode(true);
+							mapView.requestFocus();
+							mapView.setOnKeyListener( new OnKeyListener()
+							{
+							    @Override
+							    public boolean onKey( View v, int keyCode, KeyEvent event )
+							    {
+							        return false;
+							    }
+							} );
                             
                             mapView.getMap().setMyLocationEnabled(true);
 							mapView.getMap().getUiSettings().setMyLocationButtonEnabled(false);
@@ -208,6 +233,7 @@ public class MapKit extends CordovaPlugin {
 									}
 						        }
 							});
+							
 
                         } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
                                    resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
@@ -236,11 +262,13 @@ public class MapKit extends CordovaPlugin {
                             dialog.show();
 */
                         }
-                	}
-                    
+                	}                    
 
                 }
+                
+                
             });
+            
         } catch (Exception e) {
             e.printStackTrace();
             cCtx.error("MapKitPlugin::showMap(): An exception occured");
@@ -509,7 +537,7 @@ public class MapKit extends CordovaPlugin {
 
     @Override
     public void onPause(boolean multitasking) {
-        LOG.d(TAG, "MapKitPlugin::onPause()");
+        LOG.e(TAG, "MapKitPlugin::onPause()");
         if (mapView != null) {
             mapView.onPause();
         }
@@ -518,7 +546,7 @@ public class MapKit extends CordovaPlugin {
 
     @Override
     public void onResume(boolean multitasking) {
-        LOG.d(TAG, "MapKitPlugin::onResume()");
+        LOG.e(TAG, "MapKitPlugin::onResume()");
         if (mapView != null) {
             mapView.onResume();
         }
@@ -527,10 +555,11 @@ public class MapKit extends CordovaPlugin {
 
     @Override
     public void onDestroy() {
-        LOG.d(TAG, "MapKitPlugin::onDestroy()");
+        LOG.e(TAG, "MapKitPlugin::onDestroy()");
         if (mapView != null) {
             mapView.onDestroy();
         }
         super.onDestroy();
     }
+    
 }

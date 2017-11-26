@@ -63,9 +63,142 @@ public class MapKit extends CordovaPlugin {
         main = new RelativeLayout(cordova.getActivity());
     }
 
-    @Override
+    //@Override
     public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
+        root = (ViewGroup) webView.getView().getParent();
+        root.removeView(webView.getView());
+        main.addView(webView.getView());
+
+        cordova.getActivity().setContentView(main);
+
+
+
+        //cordova.getActivity().onKeyUp();
+
+        MapsInitializer.initialize(cordova.getActivity());
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LayoutParams.MATCH_PARENT, height);
+        if (atBottom) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,
+                    RelativeLayout.TRUE);
+            mapView.setPadding(0, offsetTop, 0, 0);
+        } else {
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP,
+                    RelativeLayout.TRUE);
+            mapView.setPadding(0, offsetTop, 0, 0);
+        }
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL,
+                RelativeLayout.TRUE);
+
+        mapView.setLayoutParams(params);
+        mapView.onCreate(null);
+        mapView.onResume(); // FIXME: I wish there was a better way
+        // than this...
+        main.addView(mapView);
+
+        //fix for back button: http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
+        mapView.setFocusableInTouchMode(true);
+        mapView.requestFocus();
+        mapView.setOnKeyListener( new OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                return false;
+            }
+        } );
+
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
+
+        // Moving the map to lot, lon
+        googleMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(new LatLng(
+                        latitude, longitude), 15));
+        cCtx.success();
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                webView.loadUrl(
+                        "javascript:annotationTap('" +
+                                marker.getSnippet() +
+                                "'.toString(), " +
+                                marker.getPosition().latitude +
+                                ", " +
+                                marker.getPosition().longitude +
+                                ");");
+
+                //set variable so we can close it later
+                lastClicked = marker;
+//									Log.d("MYTAG", "on Marker click: " + marker.getSnippet());
+//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().latitude);
+//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().longitude);
+                return false;
+            }
+        });
+
+        googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition position) {
+                VisibleRegion vr = googleMap.getProjection().getVisibleRegion();
+                double left = vr.latLngBounds.southwest.longitude;
+                double top = vr.latLngBounds.northeast.latitude;
+                double right = vr.latLngBounds.northeast.longitude;
+                double bottom = vr.latLngBounds.southwest.latitude;
+                double longDelta = left - right;
+                double latDelta = top - bottom;
+
+                webView.loadUrl(
+                        "javascript:geo.onMapMove(" +
+                                position.target.latitude +
+                                "," +
+                                position.target.longitude +
+                                "," +
+                                latDelta +
+                                "," +
+                                longDelta +
+                                ");");
+//									Log.d("MYTAG", "on Marker click: " + marker.getSnippet());
+//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().latitude);
+//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().longitude);
+                return;
+            }
+        });
+
+        // set variables when infoWindows open, so we can tell when they close
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(final Marker marker) {
+//									Log.d("MYTAG", "on infowindow: " + marker);
+                if (infoWindowOpen == false) {
+                    infoWindowOpen = true;
+                }
+
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
+
+        // when the map is clicked (not a pin or an infowindow),
+        // find out if we just closed an infowindow and if so, call a javascript function
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(final LatLng latlng) {
+
+                if (infoWindowOpen == true) {
+                    //Log.d("MYTAG", "on infowindow close: " + latlng.latitude);
+                    infoWindowOpen = false;
+                    webView.loadUrl("javascript:annotationDeselect();");
+                }
+            }
+        });
     }
 
     public void showMap(final JSONObject options) {
@@ -106,140 +239,7 @@ public class MapKit extends CordovaPlugin {
                             mapView = new MapView(cordova.getActivity(),
                                     new GoogleMapOptions());
                             mapView.getMapAsync(this);
-                            root = (ViewGroup) webView.getView().getParent();
-                            root.removeView(webView.getView());
-                            main.addView(webView.getView());
 
-                            cordova.getActivity().setContentView(main);
-                            
-                            
-                            
-                            //cordova.getActivity().onKeyUp();
-
-                            MapsInitializer.initialize(cordova.getActivity());
-
-                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                                    LayoutParams.MATCH_PARENT, height);
-                            if (atBottom) {
-                                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,
-                                        RelativeLayout.TRUE);
-                                mapView.setPadding(0, offsetTop, 0, 0);
-                            } else {
-                                params.addRule(RelativeLayout.ALIGN_PARENT_TOP,
-                                        RelativeLayout.TRUE);
-                                mapView.setPadding(0, offsetTop, 0, 0);
-                            }
-                            params.addRule(RelativeLayout.CENTER_HORIZONTAL,
-                                    RelativeLayout.TRUE);
-
-                            mapView.setLayoutParams(params);
-                            mapView.onCreate(null);
-                            mapView.onResume(); // FIXME: I wish there was a better way
-                                                // than this...
-                            main.addView(mapView);
-                            
-                            //fix for back button: http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
-                            mapView.setFocusableInTouchMode(true);
-							mapView.requestFocus();
-							mapView.setOnKeyListener( new OnKeyListener()
-							{
-							    @Override
-							    public boolean onKey( View v, int keyCode, KeyEvent event )
-							    {
-							        return false;
-							    }
-							} );
-
-                            googleMap.setMyLocationEnabled(true);
-                            googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-                            googleMap.getUiSettings().setMapToolbarEnabled(false);
-
-                            // Moving the map to lot, lon
-                            googleMap.moveCamera(
-                                    CameraUpdateFactory.newLatLngZoom(new LatLng(
-                                            latitude, longitude), 15));
-                            cCtx.success();
-
-                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-								@Override
-						        public boolean onMarkerClick(final Marker marker) {
-									webView.loadUrl(
-											"javascript:annotationTap('" + 
-													marker.getSnippet() + 
-											"'.toString(), " + 
-													marker.getPosition().latitude + 
-											", " + 
-													marker.getPosition().longitude + 
-											");");
-							        
-							        //set variable so we can close it later
-							        lastClicked = marker;
-//									Log.d("MYTAG", "on Marker click: " + marker.getSnippet());
-//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().latitude);
-//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().longitude);
-						            return false;
-						        }
-                            });
-
-                            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-								@Override
-						        public void onCameraChange(CameraPosition position) {
-									VisibleRegion vr = googleMap.getProjection().getVisibleRegion();
-									double left = vr.latLngBounds.southwest.longitude;
-									double top = vr.latLngBounds.northeast.latitude;
-									double right = vr.latLngBounds.northeast.longitude;
-									double bottom = vr.latLngBounds.southwest.latitude;
-									double longDelta = left - right;
-									double latDelta = top - bottom;
-									
-									webView.loadUrl(
-											"javascript:geo.onMapMove(" +
-												position.target.latitude + 
-											"," + 
-												position.target.longitude + 
-											"," + 
-												latDelta +
-											"," +
-												longDelta +
-											");");
-//									Log.d("MYTAG", "on Marker click: " + marker.getSnippet());
-//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().latitude);
-//									Log.d("MYTAG", "on Marker click: " +  marker.getPosition().longitude);
-						            return;
-						        }
-							});
-                            
-                            // set variables when infoWindows open, so we can tell when they close
-                            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-								@Override
-								public View getInfoWindow(final Marker marker) {
-//									Log.d("MYTAG", "on infowindow: " + marker);
-									if (infoWindowOpen == false) {
-										infoWindowOpen = true;
-									}
-
-									return null;
-						        }
-
-								@Override
-								public View getInfoContents(Marker marker) {
-									return null;
-								}
-							});
-							
-							// when the map is clicked (not a pin or an infowindow), 
-							// find out if we just closed an infowindow and if so, call a javascript function
-                            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-								@Override
-						        public void onMapClick(final LatLng latlng) {
-									
-									if (infoWindowOpen == true) {
-										//Log.d("MYTAG", "on infowindow close: " + latlng.latitude);
-										infoWindowOpen = false;
-										webView.loadUrl("javascript:annotationDeselect();");
-									}
-						        }
-							});
 							
 
                         } else if (resultCode == ConnectionResult.SERVICE_MISSING ||

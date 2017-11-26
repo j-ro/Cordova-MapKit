@@ -63,8 +63,9 @@ public class MapKit extends CordovaPlugin {
         main = new RelativeLayout(cordova.getActivity());
     }
 
-    public void onMapReady(GoogleMap map) {
-        googleMap = map;
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
     }
 
     public void showMap(final JSONObject options) {

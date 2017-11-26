@@ -62,6 +62,11 @@ public class MapKit extends CordovaPlugin {
         main = new RelativeLayout(cordova.getActivity());
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+    }
+
     public void showMap(final JSONObject options) {
 	    //Log.d("BusTrackDC", "showMap");
 
@@ -99,6 +104,7 @@ public class MapKit extends CordovaPlugin {
 	                        
                             mapView = new MapView(cordova.getActivity(),
                                     new GoogleMapOptions());
+                            mapView.getMapAsync(this);
                             root = (ViewGroup) webView.getView().getParent();
                             root.removeView(webView.getView());
                             main.addView(webView.getView());
@@ -142,18 +148,18 @@ public class MapKit extends CordovaPlugin {
 							        return false;
 							    }
 							} );
-                            
-                            mapView.getMapAsync(this).setMyLocationEnabled(true);
-							mapView.getMapAsync(this).getUiSettings().setMyLocationButtonEnabled(false);
-							mapView.getMapAsync(this).getUiSettings().setMapToolbarEnabled(false);
+
+                            googleMap.setMyLocationEnabled(true);
+                            googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            googleMap.getUiSettings().setMapToolbarEnabled(false);
 
                             // Moving the map to lot, lon
-                            mapView.getMapAsync(this).moveCamera(
+                            googleMap.moveCamera(
                                     CameraUpdateFactory.newLatLngZoom(new LatLng(
                                             latitude, longitude), 15));
                             cCtx.success();
-                            
-                            mapView.getMapAsync(this).setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 								@Override
 						        public boolean onMarkerClick(final Marker marker) {
 									webView.loadUrl(
@@ -173,11 +179,11 @@ public class MapKit extends CordovaPlugin {
 						            return false;
 						        }
                             });
-                            
-                            mapView.getMapAsync(this).setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+                            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
 								@Override
 						        public void onCameraChange(CameraPosition position) {
-									VisibleRegion vr = mapView.getMapAsync(this).getProjection().getVisibleRegion();
+									VisibleRegion vr = googleMap.getProjection().getVisibleRegion();
 									double left = vr.latLngBounds.southwest.longitude;
 									double top = vr.latLngBounds.northeast.latitude;
 									double right = vr.latLngBounds.northeast.longitude;
@@ -203,7 +209,7 @@ public class MapKit extends CordovaPlugin {
 							});
                             
                             // set variables when infoWindows open, so we can tell when they close
-							mapView.getMapAsync(this).setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 								@Override
 								public View getInfoWindow(final Marker marker) {
 //									Log.d("MYTAG", "on infowindow: " + marker);
@@ -222,7 +228,7 @@ public class MapKit extends CordovaPlugin {
 							
 							// when the map is clicked (not a pin or an infowindow), 
 							// find out if we just closed an infowindow and if so, call a javascript function
-							mapView.getMapAsync(this).setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 								@Override
 						        public void onMapClick(final LatLng latlng) {
 									
@@ -341,7 +347,7 @@ public class MapKit extends CordovaPlugin {
 
 					mapView.setLayoutParams(params);
 
-					mapView.getMapAsync(this).animateCamera(
+                    googleMap.animateCamera(
 							CameraUpdateFactory.newLatLngZoom(new LatLng(
 									latitude, longitude), zoomLevel));
 					cCtx.success();
@@ -423,7 +429,7 @@ public class MapKit extends CordovaPlugin {
                                 // adding Marker
                                 // This is to prevent non existing asset resources to crash the app
                                 try {
-                                    mapView.getMapAsync(this).addMarker(mOptions);
+                                    googleMap.addMarker(mOptions);
                                 } catch(NullPointerException e) {
                                     //LOG.e(TAG, "An error occurred when adding the marker. Check if icon exists");
                                 }
@@ -472,7 +478,7 @@ public class MapKit extends CordovaPlugin {
                 @Override
                 public void run() {
                     if (mapView != null) {
-                        mapView.getMapAsync(this).clear();
+                        googleMap.clear();
                         cCtx.success();
                     }
                 }
@@ -498,8 +504,8 @@ public class MapKit extends CordovaPlugin {
                         }
 
                         //Don't want to set the map type if it's the same
-                        if(mapView.getMapAsync(this).getMapType() != mapType) {
-                            mapView.getMapAsync(this).setMapType(mapType);
+                        if(googleMap.getMapType() != mapType) {
+                            googleMap.setMapType(mapType);
                         }
                     }
 

@@ -45,6 +45,7 @@ public class MapKit extends CordovaPlugin {
     protected ViewGroup root; // original Cordova layout
     protected RelativeLayout main; // new layout to support map
     protected MapView mapView;
+    private GoogleMap googleMap;
     private CallbackContext cCtx;
     private String TAG = "MapKitPlugin";
     private Marker lastClicked;

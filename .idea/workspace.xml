@@ -26,11 +26,11 @@
       <file leaf-file-name="MapKit.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/android/MapKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5864662" vertical-offset="0" max-vertical-offset="8010">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.22556391" vertical-offset="0" max-vertical-offset="8025">
+              <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
               <folding>
-                <element signature="e#2231#2232#0" expanded="true" />
-                <element signature="e#2262#2263#0" expanded="true" />
+                <element signature="e#2264#2265#0" expanded="true" />
+                <element signature="e#2295#2296#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -308,11 +308,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/android/MapKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5864662" vertical-offset="0" max-vertical-offset="8010">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.22556391" vertical-offset="0" max-vertical-offset="8025">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
           <folding>
-            <element signature="e#2231#2232#0" expanded="true" />
-            <element signature="e#2262#2263#0" expanded="true" />
+            <element signature="e#2264#2265#0" expanded="true" />
+            <element signature="e#2295#2296#0" expanded="true" />
           </folding>
         </state>
       </provider>

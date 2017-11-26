@@ -26,14 +26,14 @@
       <file leaf-file-name="MapKit.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/android/MapKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6616541" vertical-offset="2560" max-vertical-offset="8670">
-              <caret line="200" column="11" selection-start-line="200" selection-start-column="11" selection-end-line="200" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.5864662" vertical-offset="600" max-vertical-offset="8685">
+              <caret line="66" column="26" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3741#3742#0" expanded="true" />
-                <element signature="e#3785#3786#0" expanded="true" />
-                <element signature="e#7013#7014#0" expanded="true" />
-                <element signature="e#7056#7057#0" expanded="true" />
+                <element signature="e#3760#3761#0" expanded="true" />
+                <element signature="e#3804#3805#0" expanded="true" />
+                <element signature="e#7032#7033#0" expanded="true" />
+                <element signature="e#7075#7076#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -311,14 +311,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/android/MapKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6616541" vertical-offset="2560" max-vertical-offset="8670">
-          <caret line="200" column="11" selection-start-line="200" selection-start-column="11" selection-end-line="200" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.5864662" vertical-offset="600" max-vertical-offset="8685">
+          <caret line="66" column="26" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3741#3742#0" expanded="true" />
-            <element signature="e#3785#3786#0" expanded="true" />
-            <element signature="e#7013#7014#0" expanded="true" />
-            <element signature="e#7056#7057#0" expanded="true" />
+            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3804#3805#0" expanded="true" />
+            <element signature="e#7032#7033#0" expanded="true" />
+            <element signature="e#7075#7076#0" expanded="true" />
           </folding>
         </state>
       </provider>

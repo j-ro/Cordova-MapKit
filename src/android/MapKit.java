@@ -64,7 +64,8 @@ public class MapKit extends CordovaPlugin {
     }
 
     //@Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
         root = (ViewGroup) webView.getView().getParent();
         root.removeView(webView.getView());
         main.addView(webView.getView());
